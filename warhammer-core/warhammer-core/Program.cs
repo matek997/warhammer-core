@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace warhammer_core
+namespace WarhammerCore.WebApi
 {
     public class Program
     {
