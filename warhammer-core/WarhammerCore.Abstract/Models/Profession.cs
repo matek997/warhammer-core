@@ -14,10 +14,10 @@ namespace WarhammerCore.Abstract.Models
         public bool IsAdvanced { get; set; }
         public MainProfile MainProfile { get; set; }
         public SecondaryProfile SecondaryProfile { get; set; }
-        public string[] AdvanceTo { get; set; }
+        public List<string> AdvanceTo { get; set; }
         public List<Skill> Skills { get; set; }
-        public string[] Talents { get; set; }
-        public string[] Trappings { get; set; }
+        public List<string> Talents { get; set; }
+        public List<string> Trappings { get; set; }
         public int NumberOfSkills { get; set; }
         public int NumberOfTalents { get; set; }
         public int NumberOfAdvances { get; set; }
@@ -31,10 +31,10 @@ namespace WarhammerCore.Abstract.Models
             bool isAdvanced,
             MainProfile mainProfile,
             SecondaryProfile secondaryProfile,
-            string[] advanceTo,
+            List<string> advanceTo,
             List<Skill> skills,
-            string[] talents,
-            string[] trappings,
+            List<string> talents,
+            List<string> trappings,
             int numberOfAdvances)
         {
             Id = id;
@@ -48,7 +48,7 @@ namespace WarhammerCore.Abstract.Models
             Skills = skills;
             Talents = talents;
             Trappings = trappings;
-            NumberOfTalents = talents.Length;
+            NumberOfTalents = talents.Count;
             NumberOfAdvances = numberOfAdvances;
             NumberOfSkills = GetSkillsCount();
         }

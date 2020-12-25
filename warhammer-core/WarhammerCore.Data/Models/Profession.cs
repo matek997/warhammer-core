@@ -16,6 +16,7 @@ namespace WarhammerCore.Data.Models
         public string MainProfile { get; set; }
         public string SecondaryProfile { get; set; }
         public short NumberOfAdvances { get; set; }
+        public string Role { get; set; }
 
         public virtual MainProfile MainProfileNavigation { get; set; }
         public virtual SecondaryProfile SecondaryProfileNavigation { get; set; }
