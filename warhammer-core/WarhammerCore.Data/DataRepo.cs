@@ -39,7 +39,9 @@ namespace WarhammerCore.Data
 
             MainProfile mainProfile = await GetMainProfileAsync(profession.MainProfile);
             SecondaryProfile secondaryProfile = await GetSecondaryProfileAsync(profession.SecondaryProfile);
-            List<string> advances = await _db.Advances.Where(advance => advance.ProfessionId == professionId).Select(advance => advance.AdvanceTo).ToListAsync();
+
+            List<string> advancesTo = await _db.Advances.Where(advance => advance.ProfessionId == professionId).Select(advance => advance.AdvanceTo).ToListAsync();
+            List<string> advancesFrom = await _db.Advances.Where(advance => advance.AdvanceTo == professionId).Select(advance => advance.AdvanceTo).ToListAsync();
 
             List<string> professionTalents = await _db.ProfessionTalents.Where(professionTalent => professionTalent.ProfessionId == professionId).Select(professionTalent => professionTalent.TalentId).ToListAsync();
             List<string> talents = await _db.Talents.Where(talent => professionTalents.Contains(talent.Id)).Select(talent => talent.Text).ToListAsync();
@@ -49,7 +51,7 @@ namespace WarhammerCore.Data
 
             List<Skill> skills = GetSkills(professionId).Select(s => GetChildSkills(s)).ToList();
 
-            return new Profession(professionId, profession.Label, profession.Description, profession.Role, profession.IsAdvanced, mainProfile, secondaryProfile, advances, skills, talents, trappings, profession.NumberOfAdvances);
+            return new Profession(professionId, profession.Label, profession.Description, profession.Role, profession.Notes, profession.Source, profession.IsAdvanced, mainProfile, secondaryProfile, advancesFrom, advancesTo, skills, talents, trappings, profession.NumberOfAdvances);
         }
 
         private async Task<MainProfile> GetMainProfileAsync(string mainProfileId)

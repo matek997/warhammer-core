@@ -11,9 +11,12 @@ namespace WarhammerCore.Abstract.Models
         public string Label { get; set; }
         public string Description { get; set; }
         public string Role { get; set; }
+        public string Notes { get; set; }
+        public string Source { get; set; }
         public bool IsAdvanced { get; set; }
         public MainProfile MainProfile { get; set; }
         public SecondaryProfile SecondaryProfile { get; set; }
+        public List<string> AdvanceFrom { get; set; }
         public List<string> AdvanceTo { get; set; }
         public List<Skill> Skills { get; set; }
         public List<string> Talents { get; set; }
@@ -28,9 +31,12 @@ namespace WarhammerCore.Abstract.Models
             string label,
             string description,
             string role,
+            string notes,
+            string source,
             bool isAdvanced,
             MainProfile mainProfile,
-            SecondaryProfile secondaryProfile,
+            SecondaryProfile secondaryProfile, 
+            List<string> advanceFrom,
             List<string> advanceTo,
             List<Skill> skills,
             List<string> talents,
@@ -41,10 +47,13 @@ namespace WarhammerCore.Abstract.Models
             Label = label;
             Description = description;
             Role = role;
+            Notes = notes;
+            Source = source;
             IsAdvanced = isAdvanced;
             MainProfile = mainProfile;
             SecondaryProfile = secondaryProfile;
             AdvanceTo = advanceTo;
+            AdvanceFrom = advanceFrom;
             Skills = skills;
             Talents = talents;
             Trappings = trappings;
