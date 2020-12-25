@@ -28,9 +28,7 @@ namespace WarhammerCore.Data.Models
         public virtual DbSet<SkillList> SkillLists { get; set; }
         public virtual DbSet<Talent> Talents { get; set; }
         public virtual DbSet<Trapping> Trappings { get; set; }
-        public virtual DbSet<VwProfessionSkillsWithParent> VwProfessionSkillsWithParents { get; set; }
-        public virtual DbSet<VwSkillsWithParent> VwSkillsWithParents { get; set; }
-
+      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -292,40 +290,6 @@ namespace WarhammerCore.Data.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<VwProfessionSkillsWithParent>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("vw_ProfessionSkillsWithParents");
-
-                entity.Property(e => e.Id)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ParentId)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ProfessionId)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<VwSkillsWithParent>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("vw_SkillsWithParents");
-
-                entity.Property(e => e.Id)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.ParentId)
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-            });
 
             OnModelCreatingPartial(modelBuilder);
         }
