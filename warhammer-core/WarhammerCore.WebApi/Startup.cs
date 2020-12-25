@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WarhammerCore.Data.Models;
 
 namespace WarhammerCore.WebApi
 {
@@ -19,6 +21,10 @@ namespace WarhammerCore.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddControllersWithViews();
+            services.AddDbContext<WarhammerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
