@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace WarhammerCore.Data.Models
 {
-    public partial class Advance
+    public partial class AdvanceEntity
     {
         public string ProfessionId { get; set; }
         public string AdvanceTo { get; set; }
 
-        public virtual Profession AdvanceToNavigation { get; set; }
-        public virtual Profession Profession { get; set; }
+        public virtual ProfessionEntity AdvanceToNavigation { get; set; }
+        public virtual ProfessionEntity Profession { get; set; }
     }
 }

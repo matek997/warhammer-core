@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WarhammerCore.Data.Models
 {
-    public partial class Talent
+    public partial class TrappingEntity
     {
         public string Id { get; set; }
         public string Text { get; set; }

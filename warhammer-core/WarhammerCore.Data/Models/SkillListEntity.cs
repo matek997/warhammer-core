@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace WarhammerCore.Data.Models
 {
-    public partial class SkillList
+    public partial class SkillListEntity
     {
         public string ParentId { get; set; }
         public string ChildId { get; set; }
 
-        public virtual Skill Child { get; set; }
-        public virtual Skill Parent { get; set; }
+        public virtual SkillEntity Child { get; set; }
+        public virtual SkillEntity Parent { get; set; }
     }
 }

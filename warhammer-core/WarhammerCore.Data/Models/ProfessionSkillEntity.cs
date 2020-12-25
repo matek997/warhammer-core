@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace WarhammerCore.Data.Models
 {
-    public partial class ProfessionSkill
+    public partial class ProfessionSkillEntity
     {
         public string ProfessionId { get; set; }
         public string SkillId { get; set; }
 
-        public virtual Profession Profession { get; set; }
-        public virtual Skill Skill { get; set; }
+        public virtual ProfessionEntity Profession { get; set; }
+        public virtual SkillEntity Skill { get; set; }
     }
 }

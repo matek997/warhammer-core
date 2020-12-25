@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace WarhammerCore.Data.Models
 {
-    public partial class MainProfile
+    public partial class MainProfileEntity
     {
-        public MainProfile()
+        public MainProfileEntity()
         {
-            Professions = new HashSet<Profession>();
+            Professions = new HashSet<ProfessionEntity>();
         }
 
         public string Id { get; set; }
@@ -22,6 +22,6 @@ namespace WarhammerCore.Data.Models
         public short Wp { get; set; }
         public short Fel { get; set; }
 
-        public virtual ICollection<Profession> Professions { get; set; }
+        public virtual ICollection<ProfessionEntity> Professions { get; set; }
     }
 }

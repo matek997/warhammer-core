@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace WarhammerCore.Data.Models
 {
-    public partial class ProfessionTrapping
+    public partial class ProfessionTrappingEntity
     {
         public string ProfessionId { get; set; }
         public string TrappingId { get; set; }
 
-        public virtual Profession Profession { get; set; }
-        public virtual Trapping Trapping { get; set; }
+        public virtual ProfessionEntity Profession { get; set; }
+        public virtual TrappingEntity Trapping { get; set; }
     }
 }

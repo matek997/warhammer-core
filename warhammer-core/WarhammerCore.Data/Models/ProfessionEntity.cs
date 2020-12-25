@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WarhammerCore.Data.Models
 {
-    public partial class Profession
+    public partial class ProfessionEntity
     {
         public string Id { get; set; }
         public string Label { get; set; }
@@ -18,7 +18,7 @@ namespace WarhammerCore.Data.Models
         public short NumberOfAdvances { get; set; }
         public string Role { get; set; }
 
-        public virtual MainProfile MainProfileNavigation { get; set; }
-        public virtual SecondaryProfile SecondaryProfileNavigation { get; set; }
+        public virtual MainProfileEntity MainProfileNavigation { get; set; }
+        public virtual SecondaryProfileEntity SecondaryProfileNavigation { get; set; }
     }
 }

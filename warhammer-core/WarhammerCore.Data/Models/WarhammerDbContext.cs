@@ -17,23 +17,23 @@ namespace WarhammerCore.Data.Models
         {
         }
 
-        public virtual DbSet<Advance> Advances { get; set; }
-        public virtual DbSet<MainProfile> MainProfiles { get; set; }
-        public virtual DbSet<Profession> Professions { get; set; }
-        public virtual DbSet<ProfessionSkill> ProfessionSkills { get; set; }
-        public virtual DbSet<ProfessionTalent> ProfessionTalents { get; set; }
-        public virtual DbSet<ProfessionTrapping> ProfessionTrappings { get; set; }
-        public virtual DbSet<SecondaryProfile> SecondaryProfiles { get; set; }
-        public virtual DbSet<Skill> Skills { get; set; }
-        public virtual DbSet<SkillList> SkillLists { get; set; }
-        public virtual DbSet<Talent> Talents { get; set; }
-        public virtual DbSet<Trapping> Trappings { get; set; }
+        public virtual DbSet<AdvanceEntity> Advances { get; set; }
+        public virtual DbSet<MainProfileEntity> MainProfiles { get; set; }
+        public virtual DbSet<ProfessionEntity> Professions { get; set; }
+        public virtual DbSet<ProfessionSkillEntity> ProfessionSkills { get; set; }
+        public virtual DbSet<ProfessionTalentEntity> ProfessionTalents { get; set; }
+        public virtual DbSet<ProfessionTrappingEntity> ProfessionTrappings { get; set; }
+        public virtual DbSet<SecondaryProfileEntity> SecondaryProfiles { get; set; }
+        public virtual DbSet<SkillEntity> Skills { get; set; }
+        public virtual DbSet<SkillListEntity> SkillLists { get; set; }
+        public virtual DbSet<TalentEntity> Talents { get; set; }
+        public virtual DbSet<TrappingEntity> Trappings { get; set; }
       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<Advance>(entity =>
+            modelBuilder.Entity<AdvanceEntity>(entity =>
             {
                 entity.HasNoKey();
 
@@ -61,7 +61,7 @@ namespace WarhammerCore.Data.Models
                     .HasConstraintName("FK_Advance_Profession");
             });
 
-            modelBuilder.Entity<MainProfile>(entity =>
+            modelBuilder.Entity<MainProfileEntity>(entity =>
             {
                 entity.ToTable("MainProfile");
 
@@ -70,7 +70,7 @@ namespace WarhammerCore.Data.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Profession>(entity =>
+            modelBuilder.Entity<ProfessionEntity>(entity =>
             {
                 entity.ToTable("Profession");
 
@@ -116,7 +116,7 @@ namespace WarhammerCore.Data.Models
                     .HasConstraintName("FK_Profession_SecondaryProfile");
             });
 
-            modelBuilder.Entity<ProfessionSkill>(entity =>
+            modelBuilder.Entity<ProfessionSkillEntity>(entity =>
             {
                 entity.HasNoKey();
 
@@ -143,7 +143,7 @@ namespace WarhammerCore.Data.Models
                     .HasConstraintName("FK_ProfessionSkill_Skill");
             });
 
-            modelBuilder.Entity<ProfessionTalent>(entity =>
+            modelBuilder.Entity<ProfessionTalentEntity>(entity =>
             {
                 entity.HasNoKey();
 
@@ -170,7 +170,7 @@ namespace WarhammerCore.Data.Models
                     .HasConstraintName("FK_ProfessionTalent_Talent");
             });
 
-            modelBuilder.Entity<ProfessionTrapping>(entity =>
+            modelBuilder.Entity<ProfessionTrappingEntity>(entity =>
             {
                 entity.HasNoKey();
 
@@ -197,7 +197,7 @@ namespace WarhammerCore.Data.Models
                     .HasConstraintName("FK_ProfessionTrapping_Trapping");
             });
 
-            modelBuilder.Entity<SecondaryProfile>(entity =>
+            modelBuilder.Entity<SecondaryProfileEntity>(entity =>
             {
                 entity.ToTable("SecondaryProfile");
 
@@ -206,7 +206,7 @@ namespace WarhammerCore.Data.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Skill>(entity =>
+            modelBuilder.Entity<SkillEntity>(entity =>
             {
                 entity.ToTable("Skill");
 
@@ -232,7 +232,7 @@ namespace WarhammerCore.Data.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<SkillList>(entity =>
+            modelBuilder.Entity<SkillListEntity>(entity =>
             {
                 entity.HasNoKey();
 
@@ -262,7 +262,7 @@ namespace WarhammerCore.Data.Models
                     .HasConstraintName("FK_SkillList_Skill");
             });
 
-            modelBuilder.Entity<Talent>(entity =>
+            modelBuilder.Entity<TalentEntity>(entity =>
             {
                 entity.ToTable("Talent");
 
@@ -276,7 +276,7 @@ namespace WarhammerCore.Data.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Trapping>(entity =>
+            modelBuilder.Entity<TrappingEntity>(entity =>
             {
                 entity.ToTable("Trapping");
 
