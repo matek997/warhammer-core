@@ -13,4 +13,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WarhammerCore.Abstract\WarhammerCore.Abstract.csproj" />
+  </ItemGroup>
+
 </Project>
