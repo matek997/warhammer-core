@@ -18,6 +18,6 @@ namespace WarhammerCore.Abstract.Interfaces
         /// Get profession object by the id.
         /// </summary>
         /// <param name="professionId">Unique id of the profession.</param>
-        Task<Profession> GetProfession(string professionId);
+        Task<Profession> GetProfessionAsync(string professionId);
     }
 }

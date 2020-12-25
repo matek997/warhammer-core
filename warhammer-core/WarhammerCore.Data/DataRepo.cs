@@ -6,7 +6,6 @@ using WarhammerCore.Abstract.Interfaces;
 using WarhammerCore.Data.Models;
 using ProfessionModel = WarhammerCore.Abstract.Models.Profession;
 using Skill = WarhammerCore.Abstract.Models.Skill;
-using SkillEntity = WarhammerCore.Data.Models.Skill;
 
 namespace WarhammerCore.Data
 {
@@ -45,8 +44,7 @@ namespace WarhammerCore.Data
 
             List<string> professionTrappings = await _db.ProfessionTrappings.Where(professionTrapping => professionTrapping.ProfessionId == professionId).Select(professionTrapping => professionTrapping.TrappingId).ToListAsync();
             List<string> trappings = await _db.Trappings.Where(trapping => professionTrappings.Contains(trapping.Id)).Select(trapping => trapping.Text).ToListAsync();
-            List<Skill> skills = await GetSkillsAsync(professionId);
-
+            var skills = GetSkillsAsync(professionId).Select(s => GetChildSkillsAsync(s)).ToList();
             return new ProfessionModel(professionId, profession.Label, profession.Description, profession.Role, profession.IsAdvanced, mainProfile, secondaryProfile, advances, skills, talents, trappings, profession.NumberOfAdvances);
         }
 
@@ -65,27 +63,25 @@ namespace WarhammerCore.Data
         /// <summary>
         /// Recursively get skills from the database for the given profession.
         /// </summary>
-        private async Task<List<Skill>> GetSkillsAsync(string professionId)
+        private List<Skill> GetSkillsAsync(string professionId)
         {
-            List<string> firstLevelProfessionSkillIds = await _db.ProfessionSkills.Where(professionSkill => professionSkill.ProfessionId == professionId).Select(professionSkill => professionSkill.SkillId).ToListAsync();
-            List<Task<Skill>> skillsWithChildrenAsync = await _db.Skills.Where(skill => firstLevelProfessionSkillIds.Contains(skill.Id)).Select((skill) => GetChildSkillsAsync(skill)).ToListAsync();
-            return (await Task.WhenAll(skillsWithChildrenAsync)).ToList();
+            List<string> firstLevelProfessionSkillIds = _db.ProfessionSkills.Where(professionSkill => professionSkill.ProfessionId == professionId).Select(professionSkill => professionSkill.SkillId).ToList();
+            return _db.Skills.Where(skill => firstLevelProfessionSkillIds.Contains(skill.Id)).Select(s => new Skill(s.Id, s.Type, s.TargetEnum, s.Label, s.Operator)).ToList();
         }
 
         /// <summary>
         /// Recursively get skills children from the database.
         /// </summary>
-        private async Task<Skill> GetChildSkillsAsync(SkillEntity skillEntity)
+        private Skill GetChildSkillsAsync(Skill skillEntity)
         {
-            List<string> childSkillIds = await _db.SkillLists.Where(skillList => skillList.ParentId == skillEntity.Id).Select(skillList => skillList.ChildId).ToListAsync();
-            List<SkillEntity> childSkills = await _db.Skills.Where(skill => childSkillIds.Contains(skill.Id)).ToListAsync();
+            List<string> childSkillIds = _db.SkillLists.Where(skillList => skillList.ParentId == skillEntity.Id).Select(skillList => skillList.ChildId).ToList();
 
-            Skill skill = new Skill(skillEntity.Id, skillEntity.Type, skillEntity.TargetEnum, skillEntity.Label, skillEntity.Operator);
+            Skill skill = new Skill(skillEntity.Id, skillEntity.Type, skillEntity.TargetEnum, skillEntity.Key, skillEntity.Operator);
 
-            if (childSkills.Count == 0) return skill;
+            if (childSkillIds.Count == 0) return skill;
 
-            List<Task<Skill>> childSkillsAsync = childSkills.Select(childSkill => GetChildSkillsAsync(childSkill)).ToList();
-            skill.List = (await Task.WhenAll(childSkillsAsync)).ToList();
+            List<Skill> childSkillsAsync = _db.Skills.Where(skill => childSkillIds.Contains(skill.Id)).Select(childSkill => new Skill(childSkill.Id, childSkill.Type, childSkill.TargetEnum, childSkill.Label, childSkill.Operator)).ToList();
+            skill.List = childSkillsAsync.Select(s => GetChildSkillsAsync(s)).ToList();
             return skill;
         }
     }

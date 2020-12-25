@@ -19,7 +19,7 @@ namespace WarhammerCore.Business
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
-        public async Task<Profession> GetProfession(string professionId)
+        public async Task<Profession> GetProfessionAsync(string professionId)
         {
             return await _repo.GetProfessionAsync(professionId);
         }
