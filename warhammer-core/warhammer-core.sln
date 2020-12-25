@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "warhammer-core", "warhammer-core\warhammer-core.csproj", "{770D8CF1-510D-4681-B751-25F9B11FCB31}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "General", "General", "{3F0C12DD-A967-4D73-A2B6-E63501934B3C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F8D61B49-3EC0-4F97-8583-F51C92C7AF74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarhammerCore.Abstract", "WarhammerCore.Abstract\WarhammerCore.Abstract.csproj", "{1F48F703-4061-489F-B028-7D4153EBECF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarhammerCore.Abstract", "WarhammerCore.Abstract\WarhammerCore.Abstract.csproj", "{1F48F703-4061-489F-B028-7D4153EBECF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarhammerCore.Business", "WarhammerCore.Business\WarhammerCore.Business.csproj", "{E788F2CE-CC5B-4EC9-B2C6-4E582F5EFC58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarhammerCore.Business", "WarhammerCore.Business\WarhammerCore.Business.csproj", "{E788F2CE-CC5B-4EC9-B2C6-4E582F5EFC58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarhammerCore.Data", "WarhammerCore.Data\WarhammerCore.Data.csproj", "{4C06860F-EAAB-472C-BA16-2C10A78F2C94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarhammerCore.Data", "WarhammerCore.Data\WarhammerCore.Data.csproj", "{4C06860F-EAAB-472C-BA16-2C10A78F2C94}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarhammerCore.WebApi", "WarhammerCore.WebApi\WarhammerCore.WebApi.csproj", "{BF8B9D40-9886-4B61-9911-60C27EB96841}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{770D8CF1-510D-4681-B751-25F9B11FCB31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{770D8CF1-510D-4681-B751-25F9B11FCB31}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{770D8CF1-510D-4681-B751-25F9B11FCB31}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{770D8CF1-510D-4681-B751-25F9B11FCB31}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1F48F703-4061-489F-B028-7D4153EBECF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1F48F703-4061-489F-B028-7D4153EBECF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F48F703-4061-489F-B028-7D4153EBECF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,6 +33,10 @@ Global
 		{4C06860F-EAAB-472C-BA16-2C10A78F2C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C06860F-EAAB-472C-BA16-2C10A78F2C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C06860F-EAAB-472C-BA16-2C10A78F2C94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF8B9D40-9886-4B61-9911-60C27EB96841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF8B9D40-9886-4B61-9911-60C27EB96841}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF8B9D40-9886-4B61-9911-60C27EB96841}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF8B9D40-9886-4B61-9911-60C27EB96841}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
