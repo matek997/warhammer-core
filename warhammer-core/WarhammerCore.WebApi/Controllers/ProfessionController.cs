@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WarhammerCore.Abstract.Interfaces;
 using WarhammerCore.Abstract.Models;
+using WarhammerCore.WebApi.Models.Request;
 
 namespace WarhammerCore.WebApi.Controllers
 {
@@ -24,9 +25,9 @@ namespace WarhammerCore.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Profession>> GetProfession(string professionId)
+        public async Task<ActionResult<Profession>> GetProfession(GetProfessionRequest request)
         {
-            return await _professionService.GetProfessionAsync(professionId);
+            return await _professionService.GetProfessionAsync(request.ProfessionId);
         }
     }
 }
