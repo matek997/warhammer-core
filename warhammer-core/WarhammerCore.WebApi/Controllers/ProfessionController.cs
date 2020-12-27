@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WarhammerCore.Abstract.Interfaces;
 using WarhammerCore.Abstract.Models;
+using WarhammerCore.WebApi.Models.Enums;
 using WarhammerCore.WebApi.Models.Request;
+using WarhammerCore.WebApi.Models.Response;
 
 namespace WarhammerCore.WebApi.Controllers
 {
@@ -27,7 +29,11 @@ namespace WarhammerCore.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Profession>> GetProfession(GetProfessionRequest request)
         {
-            return await _professionService.GetProfessionAsync(request.ProfessionId);
+            Profession profession = await _professionService.GetProfessionAsync(request.ProfessionId);
+
+            if (profession == null) return NotFound(new ErrorResponse(ErrorCode.ProfessionNotFound));
+
+            return Ok(profession);
         }
     }
 }
