@@ -1,17 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using WarhammerCore.Data.Models;
+using WarhammerCore.WebApi.Extensions;
 
-namespace warhammer_core
+namespace WarhammerCore.WebApi
 {
     public class Startup
     {
@@ -26,6 +22,14 @@ namespace warhammer_core
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddControllersWithViews();
+            services.AddDbContext<WarhammerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
+
+            services.AddSwaggerGen().AddControllers();
+
+            services.AddAppServices();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +50,8 @@ namespace warhammer_core
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger().UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Warhammer"));
         }
     }
 }
