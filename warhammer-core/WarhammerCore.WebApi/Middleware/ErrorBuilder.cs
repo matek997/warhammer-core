@@ -56,7 +56,7 @@ namespace WarhammerCore.WebApi.Middleware
 
             if (appSettings.IsDevelopmentModeOn)
             {
-                response = new ErrorResponse(errorCode, $"{description}, \n {exception.Message}");
+                response = new ErrorResponse(errorCode, $"Description: {description}. Exception message: {exception.Message}");
 
                 foreach (var point in data)
                     response.AddData(point.Key, point.Value);
