@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Text;
@@ -26,7 +27,7 @@ namespace HostApp.WebApi.Middlewares
         /// Regular invoke method.
         /// Read the request body (request body is a stream).
         /// </summary>
-        public async Task Invoke(HttpContext context, AppSettings appSettings)
+        public async Task Invoke(HttpContext context, AppSettings appSettings, ILogger<ErrorHandlingMiddleware> logger)
         {
             string requestBody = string.Empty;
 
@@ -38,6 +39,8 @@ namespace HostApp.WebApi.Middlewares
             }
             catch (Exception ex)
             {
+                logger.LogError(ex.Message, ex);
+                logger.LogError(ex.StackTrace);
                 await HandleExceptionAsync(context, requestBody, ex, appSettings);
             }
         }
