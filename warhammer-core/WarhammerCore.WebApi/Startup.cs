@@ -1,3 +1,4 @@
+using HostApp.WebApi.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WarhammerCore.Data.Models;
 using WarhammerCore.WebApi.Extensions;
+using FluentValidation.AspNetCore;
+using WarhammerCore.WebApi.Validation;
 
 namespace WarhammerCore.WebApi
 {
@@ -22,6 +25,7 @@ namespace WarhammerCore.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMvc(options => options.Filters.Add<ValidationFilter>(int.MinValue)).AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddControllersWithViews();
             services.AddDbContext<WarhammerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
@@ -45,6 +49,8 @@ namespace WarhammerCore.WebApi
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseErrorHandling();
 
             app.UseEndpoints(endpoints =>
             {
