@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  warhammer_backend:
+    container_name: warhammer_backend
+    ports:
+        - 8000:80
+    environment: 
+        - ConnectionStrings:SqlServer=Server=warhammer_database; Database=WarhammerDb; User Id=SA; Password=<YourStrong!Passw0rd>
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on: 
+      - warhammer_database
+  warhammer_database:
+    image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
+    container_name: warhammer_database
+    ports:
+      - 1401:1433
+    volumes: 
+      - sql1data:/var/opt/mssql
+    environment: 
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=<YourStrong!Passw0rd>
+volumes: 
+  sql1data:

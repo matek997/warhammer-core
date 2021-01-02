@@ -4,7 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>WarhammerCore.WebApi</RootNamespace>
     <UserSecretsId>f489b320-f757-47e3-beae-c29eeb2117cc</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
