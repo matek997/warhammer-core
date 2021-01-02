@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using HostApp.WebApi.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System.IO;
+using System.Text;
 using WarhammerCore.Data.Models;
 using WarhammerCore.WebApi.Extensions;
 using WarhammerCore.WebApi.Validation;
@@ -31,6 +34,20 @@ namespace WarhammerCore.WebApi
             services.AddDbContext<WarhammerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
             services.AddSwaggerGen();
             services.AddAppServices();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = Configuration["Jwt:Issuer"],
+        ValidAudience = Configuration["Jwt:Issuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+    };
+});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +67,8 @@ namespace WarhammerCore.WebApi
 
             app.UseAuthorization();
 
+            app.UseAuthentication();
+            
             app.UseErrorHandling();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
