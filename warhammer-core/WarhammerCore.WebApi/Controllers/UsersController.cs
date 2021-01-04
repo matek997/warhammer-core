@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +26,7 @@ namespace WarhammerCore.WebApi.Controllers
         }
         [AllowAnonymous]
         //[HttpPost]
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest login)
         {
             ActionResult response = Unauthorized();
@@ -40,10 +40,11 @@ namespace WarhammerCore.WebApi.Controllers
 
             return response;
         }
-        [Authorize]
+       [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         [HttpGet]
         public async Task<ActionResult> Test()
         {
+
             return Ok(new { res = "yay!" });
             
         }
