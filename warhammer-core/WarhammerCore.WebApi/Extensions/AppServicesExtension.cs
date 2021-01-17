@@ -16,6 +16,7 @@ namespace WarhammerCore.WebApi.Extensions
         public static IServiceCollection AddAppServices(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IProfessionService, ProfessionService>();
+            serviceCollection.AddScoped<IUserService, UserService>();
             serviceCollection.AddScoped<IDataRepo, DataRepo>();
 
             serviceCollection.AddServiceOptions<AppSettings>("AppSettings");

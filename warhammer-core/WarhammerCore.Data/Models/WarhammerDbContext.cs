@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -28,7 +26,8 @@ namespace WarhammerCore.Data.Models
         public virtual DbSet<SkillListEntity> SkillLists { get; set; }
         public virtual DbSet<TalentEntity> Talents { get; set; }
         public virtual DbSet<TrappingEntity> Trappings { get; set; }
-      
+        public virtual DbSet<UserEntity> Users { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -290,6 +289,25 @@ namespace WarhammerCore.Data.Models
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<UserEntity>(entity =>
+            {
+                entity.ToTable("User");
+
+                entity.Property(e => e.Id)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
 
             OnModelCreatingPartial(modelBuilder);
         }
