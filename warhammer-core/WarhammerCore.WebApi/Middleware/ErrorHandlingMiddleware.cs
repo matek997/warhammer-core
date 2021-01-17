@@ -5,6 +5,7 @@ using System;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using WarhammerCore.Abstract.Exceptions;
 using WarhammerCore.Abstract.Models;
 using WarhammerCore.WebApi.Exceptions;
 using WarhammerCore.WebApi.Middleware;
@@ -76,6 +77,7 @@ namespace HostApp.WebApi.Middlewares
 
             if (ex is ControllerException controllerEx) return BuildAndSendAsync(controllerEx, errorBuilder);
             if (ex is RequestValidationException validationEx) return BuildAndSendAsync(validationEx, errorBuilder);
+            if (ex is AppBusinessException businessEx) return BuildAndSendAsync(businessEx, errorBuilder);
 
             return errorBuilder.BuildAndSendAsync();
         }
@@ -89,6 +91,18 @@ namespace HostApp.WebApi.Middlewares
             return errorBuilder
                     .SetHttpCode(ex.StatusCode)
                     .SetErrorCode(ex.ErrorCode)
+                    .BuildAndSendAsync();
+        }
+
+        /// <summary>
+        /// Build response for <see cref="AppBusinessException"/>.
+        /// </summary>
+        /// <param name="ex">Exception information about an error that happened in the Business part of the project.</param>
+        private static Task BuildAndSendAsync(AppBusinessException ex, ErrorBuilder errorBuilder)
+        {
+            return errorBuilder
+                    .SetErrorCode(ex.ErrorCode)
+                    .SetDescription(ex.Message)
                     .BuildAndSendAsync();
         }
 
