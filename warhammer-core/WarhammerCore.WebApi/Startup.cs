@@ -26,6 +26,14 @@ namespace WarhammerCore.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+                options.AddPolicy("AllowAll", builder =>
+                    builder
+                        .AllowCredentials()
+                        .SetIsOriginAllowed(origin => true)
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                ));
             services.AddControllers();
             services.AddMvc(options => options.Filters.Add<ValidationFilter>(int.MinValue)).AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddDbContext<WarhammerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
@@ -44,6 +52,9 @@ namespace WarhammerCore.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
+
+            app.UseSwagger().UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Warhammer")).UseCors("AllowAll");
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -53,8 +64,6 @@ namespace WarhammerCore.WebApi
             app.UseErrorHandling();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
-
-            app.UseSwagger().UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Warhammer"));
         }
     }
 }
