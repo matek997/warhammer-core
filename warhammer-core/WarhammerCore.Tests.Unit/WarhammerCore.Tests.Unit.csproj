@@ -1,10 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="Moq" Version="4.16.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.console" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>
@@ -16,10 +20,13 @@
     </PackageReference>
   </ItemGroup>
 
+
   <ItemGroup>
-    <ProjectReference Include="..\warhammer-core\WarhammerCore.Business\WarhammerCore.Business.csproj" />
-    <ProjectReference Include="..\warhammer-core\WarhammerCore.Data\WarhammerCore.Data.csproj" />
-    <ProjectReference Include="..\warhammer-core\WarhammerCore.WebApi\WarhammerCore.WebApi.csproj" />
+    <ProjectReference Include="..\WarhammerCore.Abstract\WarhammerCore.Abstract.csproj" />
+    <ProjectReference Include="..\WarhammerCore.Business\WarhammerCore.Business.csproj" />
+    <ProjectReference Include="..\WarhammerCore.Data\WarhammerCore.Data.csproj" />
+    <ProjectReference Include="..\WarhammerCore.WebApi\WarhammerCore.WebApi.csproj" />
   </ItemGroup>
 
+  
 </Project>
