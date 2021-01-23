@@ -30,4 +30,4 @@ jobs:
       run: dotnet build --configuration $config --no-restore
       # test project
     - name: Test
-      run: dotnet test
+      run: dotnet test --no-build --verbosity normal
