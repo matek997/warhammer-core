@@ -1,4 +1,4 @@
-name: .NET
+name: .NET Core Build with Tests
 
 on:
   push:
@@ -8,18 +8,26 @@ on:
 
 jobs:
   build:
-
+    # use ubuntu for more build minutes
     runs-on: ubuntu-latest
+    # use release mode for all steps
+    env:
+      config: 'Release'
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET
+    - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
-    - name: Restore dependencies
+        dotnet-version: 3.1.101    
+
+      # restore dependencies  
+    - name: Install dependencies
       run: dotnet restore
+
+      # build project
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --configuration $config --no-restore
+      # test project
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test
