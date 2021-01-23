@@ -18,6 +18,9 @@ jobs:
       with:
         dotnet-version: 3.1.101   
         
+    - name: Display content 
+      run: ls
+
     - name: Change directory 
       run: cd warhammer-core
 
