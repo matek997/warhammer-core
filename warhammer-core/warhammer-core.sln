@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarhammerCore.WebApi", "War
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{74456B35-21F8-4DA3-81CA-3120699210E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarhammerCore.Tests.Unit", "..\WarhammerCore.Tests.Unit\WarhammerCore.Tests.Unit.csproj", "{16BD532B-C1D3-4D6B-B13B-46FDB77FD8E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WarhammerCore.Tests.Integration", "WarhammerCore.Tests.Integration\WarhammerCore.Tests.Integration.csproj", "{2DC47CA0-3861-412B-B982-A8963924D01B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
