@@ -24,7 +24,7 @@ namespace WarhammerCore.Tests.Unit
         }
 
         [Fact]
-        public async Task GetProfessions_ShouldReturnOkProfessions()
+        public async Task GetProfessions_ShouldReturnProfessions()
         {
             // Arrange
             List<string> expectedResult = new List<string>() { "ABBOT", "GAMBLER", "PIT_FIGHTER", "SERGEANT" };
@@ -44,7 +44,7 @@ namespace WarhammerCore.Tests.Unit
         }
 
         [Fact]
-        public async Task GetProfession_ShouldReturnOkProfession()
+        public async Task GetProfession_ReturnsOk_ForValidId()
         {
             // Arrange
             string professionId = "ANIMAL_TRAINER";
@@ -85,7 +85,7 @@ namespace WarhammerCore.Tests.Unit
         }
 
         [Fact]
-        public async Task GetProfession_ShouldReturnProfessionNotFound()
+        public async Task GetProfession_ReturnsNotFound_ForInvalidId()
         {
             // Arrange
             string professionId = "ANIMAL_TRAINER";
