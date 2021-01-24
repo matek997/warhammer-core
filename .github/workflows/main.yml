@@ -23,7 +23,9 @@ jobs:
 
     - name: Change directory 
       run: cd warhammer-core
-
+      
+    - name: Display content 
+      run: ls
       # restore dependencies  
     - name: Install dependencies
       run: dotnet restore warhammer-core.sln
