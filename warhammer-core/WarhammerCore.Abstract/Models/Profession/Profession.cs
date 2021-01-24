@@ -35,7 +35,7 @@ namespace WarhammerCore.Abstract.Models
             string source,
             bool isAdvanced,
             MainProfile mainProfile,
-            SecondaryProfile secondaryProfile, 
+            SecondaryProfile secondaryProfile,
             List<string> advanceFrom,
             List<string> advanceTo,
             List<Skill> skills,
@@ -60,6 +60,13 @@ namespace WarhammerCore.Abstract.Models
             NumberOfTalents = talents.Count;
             NumberOfAdvances = numberOfAdvances;
             NumberOfSkills = GetSkillsCount();
+        }
+
+        /// <summary>
+        /// Empty constructor.
+        /// </summary>
+        public Profession()
+        {
         }
 
         /// <summary>
