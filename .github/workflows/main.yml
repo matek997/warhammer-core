@@ -18,21 +18,17 @@ jobs:
       with:
         dotnet-version: 3.1.101   
 
-    - name: Display content 
-      run: ls
-
-    - name: Change directory 
-      run: cd warhammer-core
-      
-    - name: Display content 
-      run: ls
       # restore dependencies  
     - name: Install dependencies
-      run: dotnet restore warhammer-core.sln
+      working-directory: ./warhammer-core
+      run: dotnet restore 
 
       # build project
     - name: Build
+      working-directory: ./warhammer-core
       run: dotnet build --no-restore
+      
       # test project
     - name: Test
+      working-directory: ./warhammer-core
       run: dotnet test --no-build --verbosity normal
