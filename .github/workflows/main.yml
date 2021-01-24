@@ -1,0 +1,36 @@
+name: .NET Core Build with Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    # use ubuntu for more build minutes
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101   
+
+    - name: Display content 
+      run: ls
+
+    - name: Change directory 
+      run: cd warhammer-core
+
+      # restore dependencies  
+    - name: Install dependencies
+      run: dotnet restore
+
+      # build project
+    - name: Build
+      run: dotnet build --no-restore
+      # test project
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
