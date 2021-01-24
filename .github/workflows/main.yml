@@ -26,7 +26,7 @@ jobs:
 
       # restore dependencies  
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore warhammer-core.sln
 
       # build project
     - name: Build
