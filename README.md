@@ -12,9 +12,9 @@ Projekt składa się z trzech głównych części:
     - WarhammerCore.Abstract - zawiera interfejsy oraz modele użyte w biznesowej logice solucji.
     - WarhammerCore.Business - zawiera implementację interfejsów w postaci serwisów. Znajduje się pomiędzy WebAPI a bazą danych.
     - WarhammerCore.Data - implementacja Entity Framework 6. Łączy się z bazą danych oraz wyciąga z niej dane.
-    - WarhammerCore.WebApi - zawiera implementację ASP.NET. Posiada kontrollery oraz waliduje zapytania użytkownika
-    - WarhammerCore.Tests.Integration - zawiera testy integracyjne. Używa bazy danych SQLite w celu zamockowania prawdziwej bazy. Testuje poprawne wyciąganie danych oraz ich formatowanie.
-    - WarhammerCore.Tests.Unit - zawiera testy jednostkowe kontrollerów. 
+    - WarhammerCore.WebApi - zawiera implementację ASP.NET. Posiada kontrollery oraz waliduje zapytania użytkownika. 
+    - WarhammerCore.Tests.Integration - zawiera testy integracyjne. Używa bazy danych SQLite w celu zamockowania prawdziwej bazy. Testuje poprawne wyciąganie danych oraz ich formatowanie. Napisane przy użyciu xUnit.
+    - WarhammerCore.Tests.Unit - zawiera testy jednostkowe kontrollerów. Napisane przy użyciu xUnit.
 - baza danych - relacyjna baza danych stworzona przy użyciu Microsoft SQL Server. Dostęp do bazy za pomocą Microsoft SQL Server Management Studio 18. [Link do kopii bazy danych](https://github.com/matek997/warhammer-core/wiki/Setup).
 
 Więcej informacji o projekcie można znaleźć w [zakładce Wiki](https://github.com/matek997/warhammer-core/wiki) .
