@@ -36,3 +36,4 @@ Więcej informacji o projekcie można znaleźć w [zakładce Wiki](https://githu
 - [x] Konfigurowalność palikacji na różne środowiska (testowe, produkcyjne)
 - [x] Continuous Integration / Continuous Delivery
 - [ ] Hostowanie w Azure / inny dostawca
+- [x] Docker
