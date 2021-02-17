@@ -1,6 +1,10 @@
 # Warhammer
 Projekt wykonany na zajęcia z **Programowanie w środowisko ASP.NET**.
 
+Aplikacja ma za zadanie wspomagać fanów gier fabularnych w cieszeniu się ich hobby, szczególnie w obecnej sytuacji, gdy klasyczne spotkania wokół stołu nie wchodzą w grę.
+W swoim przeznaczeniu i działaniu stawia sobie za wzór platformę Roll20 (https://roll20.net/), jednak skupia się tylko na na drugiej edycji Warhammer RPG.
+Aplikacja ułatwia proces tworzenia postaci oraz budowania świata przez graczy lub mistrza gry, oraz komfortową rozgrywkę i redukcję czasu spędzonego na obliczanie atrybutów i innych rzeczy, które są mniej lubianą częścią doświadczenia.
+
 ## Skład
 Grzegorz Sobociński <br/>
 Mateusz Hanzel
