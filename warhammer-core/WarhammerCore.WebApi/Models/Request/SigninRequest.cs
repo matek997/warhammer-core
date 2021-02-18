@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace WarhammerCore.WebApi.Models.Request
+﻿namespace WarhammerCore.WebApi.Models.Request
 {
     public class SigninRequest
     {

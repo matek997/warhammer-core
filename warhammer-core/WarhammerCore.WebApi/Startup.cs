@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using HostApp.WebApi.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -13,18 +14,17 @@ using System.Text;
 using WarhammerCore.Data.Models;
 using WarhammerCore.WebApi.Extensions;
 using WarhammerCore.WebApi.Validation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace WarhammerCore.WebApi
 {
     public class Startup
     {
         static public IConfiguration Config;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             Config = configuration;
-
         }
 
         public IConfiguration Configuration { get; }
@@ -48,16 +48,16 @@ namespace WarhammerCore.WebApi
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = Configuration["Jwt:Issuer"],
-                ValidAudience = Configuration["Jwt:Issuer"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-                };
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    };
                 });
             services.AddSingleton<IConfiguration>(Configuration);
         }
@@ -72,7 +72,6 @@ namespace WarhammerCore.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
 
             app.UseSwagger().UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Warhammer")).UseCors("AllowAll");
 

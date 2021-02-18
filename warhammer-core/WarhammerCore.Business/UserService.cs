@@ -14,8 +14,8 @@ namespace WarhammerCore.Business
 {
     public class UserService : IUserService
     {
-        private readonly IDataRepo _repo;
         private readonly IConfiguration _config;
+        private readonly IDataRepo _repo;
         public UserService(IDataRepo repo,
             IConfiguration config
             )
@@ -31,7 +31,7 @@ namespace WarhammerCore.Business
         {
           var user =   await _repo.GetUserByEmailAsync(email);
 
-            if (user.UserId == UserInfo.Empty.UserId) return null;
+            if (UserInfo.IsNullOrEmpty(user)) return null;
 
             var auth = new UserAuthInfo(user.UserId,GenerateJSONWebToken(user));
 
@@ -72,9 +72,7 @@ namespace WarhammerCore.Business
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            var claims = new List<Claim>();
-            claims.Add(new Claim("email", user.Email));
-
+            var claims = new List<Claim> { new Claim("email", user.Email) };
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
               claims,
