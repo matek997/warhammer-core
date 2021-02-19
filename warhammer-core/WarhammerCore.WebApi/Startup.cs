@@ -75,6 +75,11 @@ namespace WarhammerCore.WebApi
 
             app.UseSwagger().UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Warhammer")).UseCors("AllowAll");
 
+           /* app.UseMvc(routes =>
+            {
+                routes.MapRoute(name: "Chat", template: "Chat/Join");
+            });
+*/
             app.UseHttpsRedirection();
 
             app.UseRouting();

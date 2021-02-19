@@ -34,6 +34,14 @@ namespace WarhammerCore.WebApi.Controllers
             }
             return new SigninResponse { Email = request.Email, Token = token.Token };
         }
+
+        
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpPost]
+        public async Task<ActionResult> SignedIn()
+        {
+            return Ok();
+        }
         [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<SigninResponse>> Signup(SigninRequest request)
