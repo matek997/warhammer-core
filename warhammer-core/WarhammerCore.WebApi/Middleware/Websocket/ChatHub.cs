@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -8,17 +7,18 @@ namespace WarhammerCore.WebApi.Middleware.Websocket
 {
     public class ChatHub : Hub
     {
-        public Task BroadcastMessage(string username, string message) {
+        public Task BroadcastMessage(string username, string message)
+        {
             var x = Context;
 
             var msg = message.StartsWith("/") ? parseCommand(username, message) : $"{username}: {message}";
-            return Clients.All.SendAsync("broadcastMessage", msg );
+            return Clients.All.SendAsync("broadcastMessage", msg);
         }
 
         private string parseCommand(string username, string command)
         {
-            var result = Regex.Split(command,"/r ([0-9]+)d([0-9]+)");
-            if(result.Length ==1) return $"{username}: {command}";
+            var result = Regex.Split(command, "/r ([0-9]+)d([0-9]+)");
+            if (result.Length == 1) return $"{username}: {command}";
             var rand = new Random();
             string msg = $"rolls {result[1]}d{result[2]} -";
             int d = Int32.Parse(result[2]) + 1;
@@ -26,29 +26,9 @@ namespace WarhammerCore.WebApi.Middleware.Websocket
 
             return $"{username} {msg}";
         }
-        public Task Echo( string message) =>
+
+        public Task Echo(string message) =>
             Clients.Client(Context.ConnectionId)
                    .SendAsync("echo", $"{message} (echo from server)");
-
-        /*  public override  Task OnConnectedAsync()
-          {
-              Groups.AddToGroupAsync(Context.ConnectionId, "messageReceived");
-
-              Clients.All.SendAsync("messageReceived", DateTime.Now.ToString());
-
-
-               return base.OnConnectedAsync();
-          }
-          public async Task NewMessage(long username, string message)
-          {
-              await Clients.All.SendAsync("messageReceived", username, message);
-          }*/
-        /*      public async Task NewMessage()
-              {
-                  var context = GlobalHost.ConnectionManager.GetHubContext<Status>();
-                  var subscribers = context.Clients;
-                  var subscriber = subscribers.Group("foo");
-                  subscriber.messageReceived("ello");
-              }*/
     }
 }
