@@ -8,7 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+<<<<<<< HEAD
 using Microsoft.IdentityModel.Tokens;
+=======
+using WarhammerCore.WebApi.Middleware.Websocket;
+>>>>>>> signalr
 using System.IO;
 using System.Text;
 using WarhammerCore.Data.Models;
@@ -37,6 +41,7 @@ namespace WarhammerCore.WebApi
 									.AllowAnyMethod()
 									.AllowAnyHeader()
 					));
+			services.AddSignalR();
 			services.AddControllers();
 			services.AddMvc(options => options.Filters.Add<ValidationFilter>(int.MinValue)).AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Startup>());
 			services.AddDbContext<WarhammerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
@@ -83,9 +88,18 @@ namespace WarhammerCore.WebApi
 
 			app.UseAuthorization();
 
+
+			app.UseAuthorization();
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapHub<ChatHub>("/chat");
+				endpoints.MapControllers();
+			});
+
 			app.UseErrorHandling();
 
-			app.UseEndpoints(endpoints => endpoints.MapControllers());
+
 		}
 	}
 }
