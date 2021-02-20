@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SignalRChat.Hubs
+namespace WarhammerCore.WebApi.Middleware.Websocket
 {
     public class ChatHub : Hub
     {
-        public Task BroadcastMessage( string message) =>
-          Clients.All.SendAsync("broadcastMessage", message);
+        public Task BroadcastMessage(string username, string message) {
+            var x = Context;
+            return Clients.All.SendAsync("broadcastMessage", message);
+        }
 
         public Task Echo( string message) =>
             Clients.Client(Context.ConnectionId)

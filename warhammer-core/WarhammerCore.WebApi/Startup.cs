@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using SignalRChat.Hubs;
+using WarhammerCore.WebApi.Middleware.Websocket;
 using System.IO;
 using WarhammerCore.Data.Models;
 using WarhammerCore.WebApi.Extensions;
