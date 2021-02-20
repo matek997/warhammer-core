@@ -9,6 +9,10 @@ namespace WarhammerCore.WebApi.Models.Enums
         /// <summary>
         /// User tried to call GetProfession with an unknown ID.
         /// </summary>
-        ProfessionNotFound
+        ProfessionNotFound,
+        /// <summary>
+        /// Tried getting user that doesn't exist
+        /// </summary>
+        UserNotFound
     }
 }

@@ -1,3 +1,4 @@
+docker-compose build
  docker-compose up -d
  
  docker exec -it warhammer_database mkdir /var/opt/mssql/backup

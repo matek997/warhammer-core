@@ -1,5 +1,6 @@
 using FluentValidation.AspNetCore;
 using HostApp.WebApi.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -7,9 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System.IO;
+using System.Text;
 using WarhammerCore.Data.Models;
 using WarhammerCore.WebApi.Extensions;
+using WarhammerCore.WebApi.Middleware.Websocket;
 using WarhammerCore.WebApi.Validation;
 
 namespace WarhammerCore.WebApi
@@ -27,18 +31,34 @@ namespace WarhammerCore.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>
-                options.AddPolicy("AllowAll", builder =>
-                    builder
-                        .AllowCredentials()
-                        .SetIsOriginAllowed(origin => true)
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                ));
+                    options.AddPolicy("AllowAll", builder =>
+                            builder
+                                    .AllowCredentials()
+                                    .SetIsOriginAllowed(origin => true)
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader()
+                    ));
+            services.AddSignalR();
             services.AddControllers();
             services.AddMvc(options => options.Filters.Add<ValidationFilter>(int.MinValue)).AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddDbContext<WarhammerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
             services.AddSwaggerGen();
             services.AddAppServices();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = Configuration["Jwt:Issuer"],
+                            ValidAudience = Configuration["Jwt:Issuer"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                        };
+                    });
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,18 +72,28 @@ namespace WarhammerCore.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-
             app.UseSwagger().UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Warhammer")).UseCors("AllowAll");
 
+            /* app.UseMvc(routes =>
+			 {
+					 routes.MapRoute(name: "Chat", template: "Chat/Join");
+			 });
+*/
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseErrorHandling();
+            app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapControllers();
+            });
+
+            app.UseErrorHandling();
         }
     }
 }
