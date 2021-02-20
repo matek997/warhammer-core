@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SignalRChat.Hubs;
 using System.IO;
 using WarhammerCore.Data.Models;
 using WarhammerCore.WebApi.Extensions;
@@ -29,11 +30,13 @@ namespace WarhammerCore.WebApi
             services.AddCors(options =>
                 options.AddPolicy("AllowAll", builder =>
                     builder
+                    .WithOrigins("http://localhost:3000")
                         .AllowCredentials()
                         .SetIsOriginAllowed(origin => true)
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                 ));
+            services.AddSignalR();
             services.AddControllers();
             services.AddMvc(options => options.Filters.Add<ValidationFilter>(int.MinValue)).AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddDbContext<WarhammerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServer")));
@@ -59,11 +62,17 @@ namespace WarhammerCore.WebApi
 
             app.UseRouting();
 
+            
             app.UseAuthorization();
+
+            app.UseEndpoints(endpoints => {
+                endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapControllers();
+            });
 
             app.UseErrorHandling();
 
-            app.UseEndpoints(endpoints => endpoints.MapControllers());
+         
         }
     }
 }
