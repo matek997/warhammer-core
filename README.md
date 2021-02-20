@@ -34,7 +34,7 @@ Więcej informacji o projekcie można znaleźć w [zakładce Wiki](https://githu
 ## Wymagania projektowe (opcjonalne)
 - [x] Logowanie do pliku ("obserwowalność" aplikacji)
 - [ ] Wielojęzyczność
-- [ ] Web sockets
+- [x] Web sockets
 - [x] TypeScript / Single Page App
 - [ ] SASS / SCSS
 - [x] Konfigurowalność palikacji na różne środowiska (testowe, produkcyjne)
