@@ -35,5 +35,15 @@ namespace WarhammerCore.WebApi.Controllers
 
             return Ok(profession);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<BasicResponse>> CreateProfession(CreateProfessionRequest request)
+        {
+            bool result = await _professionService.CreateProfessionAsync(request);
+
+            BasicResponse response = new BasicResponse(result);
+
+            return Ok(response);
+        }
     }
 }
