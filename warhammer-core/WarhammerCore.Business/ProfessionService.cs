@@ -11,6 +11,7 @@ namespace WarhammerCore.Business
     public class ProfessionService : IProfessionService
     {
         private readonly IDataRepo _repo;
+
         public ProfessionService(IDataRepo repo)
         {
             _repo = repo;
@@ -30,6 +31,15 @@ namespace WarhammerCore.Business
         public async Task<IEnumerable<string>> GetProfessionsAsync()
         {
             return await _repo.GetProfessionsAsync();
+        }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        public async Task<bool> CreateProfessionAsync(ProfessionCreationModel model)
+        {
+            Profession profession = new Profession(model.Id, model.Label, model.Description, model.Role, model.Notes, model.Source, model.IsAdvanced, model.MainProfile, model.SecondaryProfile, model.AdvanceFrom, model.AdvanceTo, new List<Skill>(), new List<string>(), new List<string>(), 0);
+            return await _repo.CreateProfessionAsync(profession);
         }
     }
 }

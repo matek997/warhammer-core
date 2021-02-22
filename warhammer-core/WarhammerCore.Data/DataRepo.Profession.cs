@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,6 +16,27 @@ namespace WarhammerCore.Data
         public async Task<IEnumerable<string>> GetProfessionsAsync()
         {
             return await _db.Professions.Select((profession) => profession.Id).ToListAsync();
+        }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        public async Task<bool> CreateProfessionAsync(Profession profession)
+        {
+            ProfessionEntity existingProfession = await _db.Professions.SingleOrDefaultAsync(p => p.Id == profession.Id);
+
+            bool doesProfessionAlreadyExist = existingProfession == null;
+            if (!doesProfessionAlreadyExist) return false;
+
+            MainProfileEntity mainProfile = new MainProfileEntity() { Id = new Guid().ToString(), Ag = profession.MainProfile.Ag, Bs = profession.MainProfile.Bs, Fel = profession.MainProfile.Fel, Int = profession.MainProfile.Int, S = profession.MainProfile.S, T = profession.MainProfile.T, Wp = profession.MainProfile.Wp, Ws = profession.MainProfile.Ws };
+            SecondaryProfileEntity secondaryProfile = new SecondaryProfileEntity() { Id = new Guid().ToString(), A = profession.SecondaryProfile.A, Fp = profession.SecondaryProfile.Fp, Ip = profession.SecondaryProfile.Ip, M = profession.SecondaryProfile.M, Mag = profession.SecondaryProfile.Mag, Sb = profession.SecondaryProfile.Sb, Tb = profession.SecondaryProfile.Tb, W = profession.SecondaryProfile.W };
+            ProfessionEntity professionEntity = new ProfessionEntity() { Id = profession.Id, Description = profession.Description, Label = profession.Label, IsAdvanced = profession.IsAdvanced, Notes = profession.Notes, Role = profession.Notes, SecondaryProfile = secondaryProfile.Id, MainProfile = mainProfile.Id, NumberOfAdvances = 0, Source = profession.Source };
+            await _db.MainProfiles.AddAsync(mainProfile);
+            await _db.SecondaryProfiles.AddAsync(secondaryProfile);
+            await _db.Professions.AddAsync(professionEntity);
+
+            await _db.SaveChangesAsync();
+            return true;
         }
 
         /// <summary>
