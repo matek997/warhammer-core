@@ -22,5 +22,16 @@
             Wp = wp;
             Fel = fel;
         }
+        public MainProfile()
+        {
+            Ws = 0;
+            Bs = 0;
+            S = 0;
+            T = 0;
+            Ag = 0;
+            Int =0;
+            Wp = 0;
+            Fel = 0;
+        }
     }
 }

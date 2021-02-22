@@ -22,5 +22,17 @@
             Ip = ip;
             Fp = fp;
         }
+
+        public SecondaryProfile()
+        {
+            A = 0;
+            W = 0;
+            Sb = 0;
+            Tb = 0;
+            M = 0;
+            Mag = 0;
+            Ip = 0;
+            Fp = 0;
+        }
     }
 }
