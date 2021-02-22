@@ -58,7 +58,7 @@ namespace WarhammerCore.WebApi
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                         };
                     });
-            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,16 +74,11 @@ namespace WarhammerCore.WebApi
 
             app.UseSwagger().UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Warhammer")).UseCors("AllowAll");
 
-            /* app.UseMvc(routes =>
-			 {
-					 routes.MapRoute(name: "Chat", template: "Chat/Join");
-			 });
-*/
             app.UseHttpsRedirection();
 
-            app.UseRouting();
+            app.UseErrorHandling();
 
-            app.UseAuthorization();
+            app.UseRouting();
 
             app.UseAuthorization();
 
@@ -92,8 +87,6 @@ namespace WarhammerCore.WebApi
                 endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapControllers();
             });
-
-            app.UseErrorHandling();
         }
     }
 }
