@@ -24,6 +24,13 @@ namespace WarhammerCore.Abstract.Interfaces
         /// <param name="professionId">Unique id of the profession.</param>
         Task<Profession> GetProfessionAsync(string professionId);
 
+        /// <summary>
+        /// Create new profession in the database.
+        /// </summary>
+        /// <param name="profession">Created profession with all elements set.</param>
+        /// <returns>Bool based on the request status.</returns>
+        Task<bool> CreateProfessionAsync(Profession profession);
+
         #endregion Profession
 
         #region User
